@@ -12,8 +12,8 @@ export const Button = ({
         'btn': true,
         'btn--secondary': type === 'secondary',
         'btn--primary': type === 'primary',
-        'btn--small': type === 's',
-        'btn--medium': type === 'm',
+        'btn--small': size === 's',
+        'btn--medium': size === 'm',
     })
     return(
         <button className={btnClass} onClick={onClick}>
