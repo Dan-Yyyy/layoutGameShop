@@ -1,15 +1,21 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { setItemInCart } from "../../redux/card/reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteItemFromCart, setItemInCart } from "../../redux/card/reducer";
 import { Button } from '../button';
 import './GameBuy.sass';
 
 export const GameBuy = ({game}) => {
     const dispatch = useDispatch();
+    const items = useSelector(state => state.cart.itemsInCart);
+    const isItemsInCart = items.some(item => item.id === game.id);
 
     const handelCkick = (e) => {
         e.stopPropagation();
-        dispatch(setItemInCart(game));
+        if(isItemsInCart) {
+            dispatch(deleteItemFromCart(game.id))
+        } else {
+            dispatch(setItemInCart(game));
+        }
     };
 
     return(
@@ -17,9 +23,9 @@ export const GameBuy = ({game}) => {
             <span className="game-buy__price">{game.price} руб.</span>
             <Button 
                 onClick={ handelCkick }
-                type="primary"
+                type={isItemsInCart? "secondary" : "primary"}
                 >                
-                    В корзину 
+                    { isItemsInCart ? 'Убрать из корзины' :  'В корзину' }
             </Button>
         </div>
     )

@@ -1,9 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { store } from './redux';
 import { Home } from './pages/home';
 import { Header } from './components/header';
-import { store } from './redux';
+import { Game } from './pages/game/Game';
+import { Order } from './pages/order/Order';
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
         <div className="app">
           <Header/>
           <Routes>
-            <Route exact path='/' element={<Home />}/>
+            <Route path='/' element={<Home />}/>
+            <Route path='/app/:title' element={<Game />}/>
+            <Route path='/order' element={<Order />}/>
           </Routes>
         </div>
       </Router>
